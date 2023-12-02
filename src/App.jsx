@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -10,12 +10,13 @@ function App() {
     { id: 2, nom: "Banane"},
     { id: 3, nom: "Cerise"},
   ])
+
+  const [nouveauFruit, setNouveauFruit] = useState("")
   
-  const inputRef = useRef()
+  // const inputRef = useRef()
 
   //comportement
   const handleDelete = (id) =>{
-    console.log(id);
 
     //copie du state
     const fruitsCopy = fruits.slice()
@@ -32,9 +33,13 @@ function App() {
   const handleSubmit = (event) =>{
     event.preventDefault()
     // alert("handleSubmit")
-    console.log(inputRef);
+    // console.log(inputRef.current.value);
   }
 
+  
+  const handleChange = (event) =>{
+    setNouveauFruit(event.target.value)
+  }
 
 
   //rendu
@@ -50,7 +55,7 @@ function App() {
           )}
         </ul>
         <form action="submit" onSubmit={handleSubmit}>
-          <input type="text" placeholder='Ajouter un fruit...'/>
+          <input value={nouveauFruit} type="text" placeholder='Ajouter un fruit...' onChange={handleChange}/>
           <button>Ajouter +</button>
         </form>
       </div>
