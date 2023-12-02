@@ -13,18 +13,15 @@ function App() {
 
   const [nouveauFruit, setNouveauFruit] = useState("")
   
-  // const inputRef = useRef()
 
   //comportement
   const handleDelete = (id) =>{
 
     //copie du state
     const fruitsCopy = fruits.slice()
-    console.log(fruitsCopy);
 
-    //manipuler mon state
+    //manipuler mon state sur la copie du state
     const fruitsCopyUpdated = fruits.filter((fruit)=> fruit.id !== id)
-    console.log(fruitsCopyUpdated);
 
     //modifier mon state avec le setter
     setFruits(fruitsCopyUpdated)
@@ -32,8 +29,20 @@ function App() {
 
   const handleSubmit = (event) =>{
     event.preventDefault()
-    // alert("handleSubmit")
     // console.log(inputRef.current.value);
+
+    //copie du state
+    const fruitsCopy = [...fruits]
+
+    //manipuler mon state sur la copie du state
+    const id = new Date().getTime();
+    const nom = nouveauFruit;
+    fruitsCopy.push({id, nom})
+
+    //modifier mon state avec le setter
+    setFruits(fruitsCopy);
+    setNouveauFruit("")
+
   }
 
   
