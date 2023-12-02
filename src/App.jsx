@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import Fruit from './components/fruit'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import FruitForm from './components/fruitForm'
 
 function App() {
   //state (état)
@@ -11,8 +13,6 @@ function App() {
     { id: 3, nom: "Cerise"},
   ])
 
-  const [nouveauFruit, setNouveauFruit] = useState("")
-  
 
   //comportement
   const handleDelete = (id) =>{
@@ -27,30 +27,6 @@ function App() {
     setFruits(fruitsCopyUpdated)
   }
 
-  const handleSubmit = (event) =>{
-    event.preventDefault()
-    // console.log(inputRef.current.value);
-
-    //copie du state
-    const fruitsCopy = [...fruits]
-
-    //manipuler mon state sur la copie du state
-    const id = new Date().getTime();
-    const nom = nouveauFruit;
-    fruitsCopy.push({id, nom})
-
-    //modifier mon state avec le setter
-    setFruits(fruitsCopy);
-    setNouveauFruit("")
-
-  }
-
-  
-  const handleChange = (event) =>{
-    setNouveauFruit(event.target.value)
-  }
-
-
   //rendu
   return (
     <>
@@ -58,15 +34,10 @@ function App() {
         <h1>Liste des fruits</h1>
         <ul>
           {fruits.map((fruit)=>
-            <li key={fruit.id}>
-              {fruit.nom}<button onClick={()=>handleDelete(fruit.id)}>X</button>
-            </li> 
+            <Fruit infoFruit ={fruit} actionClick={()=>handleDelete(fruit.id)} key={fruit.id}></Fruit>
           )}
         </ul>
-        <form action="submit" onSubmit={handleSubmit}>
-          <input value={nouveauFruit} type="text" placeholder='Ajouter un fruit...' onChange={handleChange}/>
-          <button>Ajouter +</button>
-        </form>
+        <FruitForm fruits={fruits} setFruits={setFruits} />
       </div>
     </>
   )
